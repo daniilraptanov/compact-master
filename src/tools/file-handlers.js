@@ -11,26 +11,37 @@ const getFilesNamesDir = (dirname) => {
     return fs.readdirSync(dirname);
 }
 
-const getResultFilePath = (dirname) => {
-    return path.join(dirname, RESULT_FILE_NAME);
+const getPureFileName = (fileName, extension) => {
+    return fileName.split('.')[0];
 }
 
-const getMetaFilePath = (dirname) => {
-    return path.join(dirname, META_FILE_NAME);
+const getFilePath = (dirname, fileName) => {
+    return path.join(dirname, fileName);
 }
 
-const writeResultToFile = (buffer, dirname) => {
-    fs.writeFileSync(getResultFilePath(dirname), buffer);
+const getFileDir = (dirname, fileName, extension) => {
+    const pureName = getPureFileName(fileName, extension);
+    const fileDir = path.join(dirname, pureName);
+    return fileDir;
 }
 
-const writeMetaToFile = (codes, dirname) => {
-    fs.writeFileSync(getMetaFilePath(dirname), JSON.stringify(mapToObject(codes)));
+const writeResultToFile = (buffer, dirname, fileName, extension) => {
+    const fileDir = getFileDir(dirname, fileName, extension);
+    fs.mkdirSync(fileDir, { recursive: true });
+    fs.writeFileSync(path.join(fileDir, RESULT_FILE_NAME), buffer);
+}
+
+const writeMetaToFile = (codes, dirname, fileName, extension) => {
+    const fileDir = getFileDir(dirname, fileName, extension);   
+    fs.mkdirSync(fileDir, { recursive: true });
+    fs.writeFileSync(path.join(fileDir, META_FILE_NAME), JSON.stringify(mapToObject(codes)));
 }
 
 module.exports = {
     readTextFromFile,
     getFilesNamesDir,
     writeResultToFile,
-    writeMetaToFile
+    writeMetaToFile,
+    getFilePath
 }
 

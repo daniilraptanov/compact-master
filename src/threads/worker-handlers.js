@@ -1,16 +1,12 @@
+const path = require('path');
 const { Worker } = require('worker_threads');
 
-// const WORKER_SCRIPT = `
-//   const { parentPort, workerData } = require('worker_threads');
-//   parentPort.postMessage('started...');
 
-//   workerData.callback();
-
-//   parentPort.postMessage('done');
-// `;
-
-const createWorker = (callback) => {
-    const worker = new Worker("./worker-script.js", { workerData: { callback } });
+const createWorker = (dirname, fileName, extension) => {
+    const worker = new Worker(
+        path.resolve(__dirname, "./worker-script.js"), 
+        { workerData: { dirname, fileName, extension } }
+    );
 
     worker.on('message', message => {
         console.log(`MESSAGE: ${message}`);
