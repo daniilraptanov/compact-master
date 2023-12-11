@@ -1,2 +1,2 @@
 # compact-master
-Program for compressing files with custom algorithm.
+Program for compressing files in current dir by Huffman-coding algorithm.
