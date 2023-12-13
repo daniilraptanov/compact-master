@@ -62,7 +62,7 @@ function encode(text, codes) {
         result.push(codes.get(char));
     }
 
-    return result.join('');
+    return result;
 }
 
 function decode(encodedText, codes) {

@@ -1,17 +1,19 @@
-const { getFilesNamesDir } = require('./tools/file-handlers');
+const { getObjectsToProcessing } = require('./tools/file-handlers');
 const { DEFAULT_FILES_EXTENSION } = require('./constants');
 const { createWorker } = require('./threads/worker-handlers');
 const { getValidArguments } = require('./tools/parse-args-handlers');
+const { stringToBoolean } = require('./tools/utils');
 
 const spawnWorkers = (
-    filesNames = [], 
+    toProcessing = [], 
     dirname = process.cwd(), 
-    extension = DEFAULT_FILES_EXTENSION
+    extension = DEFAULT_FILES_EXTENSION,
+    decompress = false,
 ) => {
     const workers = [];
   
-    filesNames.forEach((fileName) => {
-        const worker = createWorker(dirname, fileName, extension);
+    toProcessing.forEach((name) => {
+        const worker = createWorker(dirname, name, extension, decompress);
         workers.push(worker);
     });
   
@@ -19,11 +21,11 @@ const spawnWorkers = (
 }
 
 const app = (dirname, extension) => {
-    const { decompress } = getValidArguments();
+    const args = getValidArguments();
+    const decompress = stringToBoolean(args.decompress);
 
-    const filesNames = getFilesNamesDir(dirname)
-        .filter(name => name.endsWith(extension));
-    spawnWorkers(filesNames, dirname, extension);
+    const toProcessing = getObjectsToProcessing(dirname, extension, decompress);
+    spawnWorkers(toProcessing, dirname, extension, decompress);
 }
 
 app(process.cwd(), DEFAULT_FILES_EXTENSION);

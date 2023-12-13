@@ -2,10 +2,10 @@ const path = require('path');
 const { Worker } = require('worker_threads');
 
 
-const createWorker = (dirname, fileName, extension) => {
+const createWorker = (dirname, fileName, extension, decompress) => {
     const worker = new Worker(
       path.resolve(__dirname, 'worker-script.js'), 
-        { workerData: { dirname, fileName, extension } }
+        { workerData: { dirname, fileName, extension, decompress } }
     );
 
     worker.on('message', message => {
