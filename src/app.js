@@ -4,7 +4,7 @@ const { createWorker } = require('./threads/worker-handlers');
 
 const spawnWorkers = (
     filesNames = [], 
-    dirname = __dirname, 
+    dirname = process.cwd(), 
     extension = DEFAULT_FILES_EXTENSION
 ) => {
     const workers = [];
@@ -23,7 +23,7 @@ const app = (dirname, extension) => {
     spawnWorkers(filesNames, dirname, extension);
 }
 
-app(__dirname, DEFAULT_FILES_EXTENSION);
+app(process.cwd(), DEFAULT_FILES_EXTENSION);
 
 
 // TODO ::

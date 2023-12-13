@@ -1,0 +1,24 @@
+{
+    "name": "compact-master",
+    "version": "1.0.0",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node ./src/app.js",
+        "build": "pkg . --out-path dist"
+    },
+    "pkg": {
+        "scripts": [
+            "src/**/*.js"
+        ],
+        "targets": [
+            "node18-linux-x64",
+            "node18-win-x64"
+        ]
+    },
+    "bin": {
+        "compact-master": "src/app.js"
+    },
+    "devDependencies": {
+        "pkg": "^5.8.1"
+    }
+}

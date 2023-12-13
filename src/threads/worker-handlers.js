@@ -4,7 +4,7 @@ const { Worker } = require('worker_threads');
 
 const createWorker = (dirname, fileName, extension) => {
     const worker = new Worker(
-        path.resolve(__dirname, "./worker-script.js"), 
+      path.resolve(__dirname, 'worker-script.js'), 
         { workerData: { dirname, fileName, extension } }
     );
 
