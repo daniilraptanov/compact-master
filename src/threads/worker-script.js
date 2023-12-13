@@ -16,7 +16,7 @@ const fileHandler = (dirname, fileName, extension) => {
     writeMetaToFile(codes, dirname, fileName, extension);
 }
 
-parentPort.postMessage('started...');
+parentPort.postMessage('compressing started...');
 fileHandler(workerData.dirname, workerData.fileName);
 parentPort.postMessage('done');
 
