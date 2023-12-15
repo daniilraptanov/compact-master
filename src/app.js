@@ -30,11 +30,3 @@ const app = (dirname, extension) => {
 
 app(process.cwd(), DEFAULT_FILES_EXTENSION);
 
-
-// TODO ::
-/**
- * 1. threads (done)
- * 2. modes (in progress)
- * 3. c++ optimization
- * 4. compile to exe (done)
- */
